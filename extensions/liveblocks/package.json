@@ -10,38 +10,28 @@
     "Web"
   ],
   "license": "MIT",
-  "commands": [
+  "commands": [{
+      "name": "index",
+      "title": "Show Rooms",
+      "subtitle": "Liveblocks",
+      "description": "Get a list of rooms.",
+      "mode": "view"
+    },
     {
-      "name": "init-room-storage",
+      "name": "initialize",
       "title": "Initialize Room Storage",
       "subtitle": "Liveblocks",
-      "description": "Initialize a room storage, optionally passing new storage data as a JSON.",
-      "mode": "view"
-    },
-    {
-      "name": "get-room-storage",
-      "title": "Get Room Storage",
-      "subtitle": "Liveblocks",
-      "description": "Get the room storage data as a JSON.",
-      "mode": "view"
-    },
-    {
-      "name": "delete-room-storage",
-      "title": "Delete Room Storage",
-      "subtitle": "Liveblocks",
-      "description": "Delete all elements of the room storage.",
+      "description": "Initialize a room storage.",
       "mode": "view"
     }
   ],
-  "preferences": [
-    {
-      "name": "secret",
-      "type": "password",
-      "required": true,
-      "title": "Secret Key",
-      "description": "You can find your Secret Key in the Liveblocks Dashboard."
-    }
-  ],
+  "preferences": [{
+    "name": "secret",
+    "type": "password",
+    "required": true,
+    "title": "Secret Key",
+    "description": "You can find your Secret Key in the Liveblocks Dashboard."
+  }],
   "dependencies": {
     "@raycast/api": "^1.33.2",
     "axios": "^0.26.1",
