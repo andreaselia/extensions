@@ -1,18 +1,7 @@
-import {
-  Form,
-  ActionPanel,
-  Action,
-  showToast,
-  Toast,
-  LocalStorage,
-  open,
-  Icon,
-  List,
-  confirmAlert,
-} from "@raycast/api";
+import { ActionPanel, Action, showToast, Toast, LocalStorage, Icon, List, confirmAlert } from "@raycast/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import GetRoomStorage from "./get-room-storage";
+import GetRoomStorage from "./get";
 import { getTokenFromSecret } from "./utils";
 
 interface Room {
