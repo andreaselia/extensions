@@ -30,6 +30,7 @@ export const getRoom = async (roomId: string) => {
 };
 
 // TODO: sort params
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createRoom = async (roomId: string, params: any) => {
   const liveblocks = await createClient();
 
@@ -37,6 +38,7 @@ export const createRoom = async (roomId: string, params: any) => {
 };
 
 // TODO: sort params
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateRoom = async (roomId: string, params: any) => {
   const liveblocks = await createClient();
 
@@ -74,6 +76,7 @@ export const getActiveUsers = async (roomId: string) => {
 };
 
 // TODO: sort data
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const broadcastEvent = async (roomId: string, data: any) => {
   const liveblocks = await createClient();
 

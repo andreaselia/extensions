@@ -1,9 +1,11 @@
-import { ActionPanel, Action, Icon, List } from "@raycast/api";
+import { ActionPanel, Action, Icon, List, useNavigation } from "@raycast/api";
 import { RoomData } from "@liveblocks/node";
 import { useEffect, useState } from "react";
 import { getRooms } from "./api";
+import { ActiveUsers } from "./views";
 
 export default function Command() {
+  const { push } = useNavigation();
   const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState<RoomData[]>([]);
 
@@ -36,6 +38,7 @@ export default function Command() {
               <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => {}} />
               <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => {}} />
               <Action title="Delete Room Storage" icon={Icon.Trash} onAction={() => {}} />
+              <Action title="Get Active Users" icon={Icon.Trash} onAction={() => push(<ActiveUsers />)} />
             </ActionPanel>
           }
         />
