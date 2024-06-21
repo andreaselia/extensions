@@ -87,3 +87,21 @@ export const deleteRoomStorage = async (roomId: string) => {
 
   return liveblocks.deleteStorageDocument(roomId);
 };
+
+export const getYjsDocument = async (roomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.getYjsDocument(roomId);
+};
+
+// export const sendYjsBinaryUpdate = async (roomId: string, update: Uint8Array) => {
+//   const liveblocks = await createClient();
+
+//   return liveblocks.sendYjsBinaryUpdate("my-room-id", update);
+// };
+
+// export const getYjsDocumentAsBinaryUpdate = async (roomId: string) => {
+//   const liveblocks = await createClient();
+
+//   return liveblocks.getYjsDocumentAsBinaryUpdate(roomId);
+// };
