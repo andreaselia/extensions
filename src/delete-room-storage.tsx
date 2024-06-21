@@ -1,7 +1,7 @@
-import { Form, ActionPanel, Action, showToast, Toast, LocalStorage, popToRoot, Icon } from "@raycast/api";
-import axios from "axios";
+import { Form, ActionPanel, Action, showToast, Toast, popToRoot, Icon } from "@raycast/api";
 import { useEffect } from "react";
 import { getTokenFromSecret } from "./utils";
+import { deleteRoomStorage } from "./api";
 
 interface CommandForm {
   roomId: string;
@@ -18,16 +18,13 @@ export default function Command() {
       return;
     }
 
-    const jwt = await LocalStorage.getItem<string>("liveblocks-jwt");
     const toast = await showToast({
       style: Toast.Style.Animated,
       title: "Deleting the room...",
     });
 
     try {
-      await axios.delete(`https://liveblocks.net/api/v1/room/${encodeURIComponent(values.roomId)}/storage`, {
-        headers: { Authorization: `Bearer ${jwt}` },
-      });
+      await deleteRoomStorage(values.roomId);
 
       toast.style = Toast.Style.Success;
       toast.title = "Room deleted successfully";

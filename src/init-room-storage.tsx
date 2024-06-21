@@ -1,7 +1,7 @@
-import { Form, ActionPanel, Action, showToast, Toast, LocalStorage, open, Icon } from "@raycast/api";
-import axios from "axios";
+import { Form, ActionPanel, Action, showToast, Toast, open, Icon } from "@raycast/api";
 import { useEffect, useRef, useState } from "react";
 import { getTokenFromSecret } from "./utils";
+import { initRoomStorage } from "./api";
 
 interface CommandForm {
   roomId: string;
@@ -12,7 +12,7 @@ interface CommandForm {
 export default function Command() {
   const [roomId, setRoomId] = useState("");
   const [payload, setPayload] = useState("");
-  const roomIdFieldRef = useRef<Form.TextField>("");
+  const roomIdFieldRef = useRef<Form.TextField>(null);
 
   useEffect(() => {
     getTokenFromSecret();
@@ -25,7 +25,6 @@ export default function Command() {
       return;
     }
 
-    const jwt = await LocalStorage.getItem<string>("liveblocks-jwt");
     const toast = await showToast({
       style: Toast.Style.Animated,
       title: "Initializing the room...",
@@ -36,18 +35,7 @@ export default function Command() {
     }
 
     try {
-      await axios.post(
-        `https://liveblocks.net/api/v1/room/${encodeURIComponent(values.roomId)}/storage/json`,
-        {
-          data: {
-            liveblocksType: values.type,
-            data: JSON.parse(values.payload),
-          },
-        },
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      );
+      initRoomStorage(values.roomId, values.type, values.payload);
 
       toast.style = Toast.Style.Success;
       toast.title = "Room initialized successfully";

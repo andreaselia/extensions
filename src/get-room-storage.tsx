@@ -1,7 +1,7 @@
-import { Form, ActionPanel, Action, showToast, Toast, LocalStorage, open, Icon } from "@raycast/api";
-import axios from "axios";
+import { Form, ActionPanel, Action, showToast, Toast, open, Icon } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { getTokenFromSecret } from "./utils";
+import { getRoomStorage } from "./api";
 
 interface CommandForm {
   roomId: string;
@@ -20,19 +20,13 @@ export default function Command() {
       return;
     }
 
-    const jwt = await LocalStorage.getItem<string>("liveblocks-jwt");
     const toast = await showToast({
       style: Toast.Style.Animated,
       title: "Retrieving room storage...",
     });
 
     try {
-      const { data } = await axios.get(
-        `https://liveblocks.net/api/v1/room/${encodeURIComponent(values.roomId)}/storage/json`,
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      );
+      const { data } = await getRoomStorage(values.roomId);
 
       toast.style = Toast.Style.Success;
       toast.title = "Room storage retrieved successfully";

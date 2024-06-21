@@ -1,0 +1,89 @@
+import { LocalStorage } from "@raycast/api";
+import { Liveblocks } from "@liveblocks/node";
+
+const createClient = async () => {
+  const secret = await LocalStorage.getItem<string>("liveblocks-secret");
+
+  if (!secret) {
+    throw new Error("Secret key is required");
+  }
+
+  return new Liveblocks({
+    secret,
+  });
+};
+
+export const getRooms = async () => {
+  const liveblocks = await createClient();
+
+  return liveblocks.getRooms();
+};
+
+export const getRoom = async (roomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.getRoom(roomId);
+};
+
+// TODO: sort params
+export const createRoom = async (roomId: string, params: any) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.createRoom(roomId, params);
+};
+
+// TODO: sort params
+export const updateRoom = async (roomId: string, params: any) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.updateRoom(roomId, params);
+};
+
+export const deleteRoom = async (roomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.deleteRoom(roomId);
+};
+
+export const updateRoomId = async (currentRoomId: string, newRoomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.updateRoomId({
+    currentRoomId,
+    newRoomId,
+  });
+};
+
+export const initRoomStorage = async (roomId: string, type: string, payload: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.initializeStorageDocument(roomId, {
+    liveblocksType: type, // TODO: fix this
+    data: JSON.parse(payload),
+  });
+};
+
+export const getActiveUsers = async (roomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.getActiveUsers(roomId);
+};
+
+// TODO: sort data
+export const broadcastEvent = async (roomId: string, data: any) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.broadcastEvent(roomId, data);
+};
+
+export const getRoomStorage = async (roomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.getStorageDocument(roomId);
+};
+
+export const deleteRoomStorage = async (roomId: string) => {
+  const liveblocks = await createClient();
+
+  return liveblocks.deleteStorageDocument(roomId);
+};
