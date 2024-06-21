@@ -1,6 +1,5 @@
 import { Form, ActionPanel, Action, showToast, Toast, open, Icon } from "@raycast/api";
-import { useEffect, useRef, useState } from "react";
-import { getTokenFromSecret } from "./utils";
+import { useRef, useState } from "react";
 import { initRoomStorage } from "./api";
 
 interface CommandForm {
@@ -13,10 +12,6 @@ export default function Command() {
   const [roomId, setRoomId] = useState("");
   const [payload, setPayload] = useState("");
   const roomIdFieldRef = useRef<Form.TextField>(null);
-
-  useEffect(() => {
-    getTokenFromSecret();
-  }, []);
 
   async function handleSubmit(values: CommandForm) {
     if (values.roomId == "") {

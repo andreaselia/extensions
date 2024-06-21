@@ -1,6 +1,4 @@
 import { Form, ActionPanel, Action, showToast, Toast, popToRoot, Icon } from "@raycast/api";
-import { useEffect } from "react";
-import { getTokenFromSecret } from "./utils";
 import { deleteRoomStorage } from "./api";
 
 interface CommandForm {
@@ -8,10 +6,6 @@ interface CommandForm {
 }
 
 export default function Command() {
-  useEffect(() => {
-    getTokenFromSecret();
-  }, []);
-
   async function handleSubmit(values: CommandForm) {
     if (values.roomId == "") {
       showToast(Toast.Style.Failure, "Error", "Room ID is required");

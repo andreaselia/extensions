@@ -1,6 +1,5 @@
 import { Form, ActionPanel, Action, showToast, Toast, open, Icon } from "@raycast/api";
-import { useEffect, useState } from "react";
-import { getTokenFromSecret } from "./utils";
+import { useState } from "react";
 import { getRoomStorage } from "./api";
 
 interface CommandForm {
@@ -9,10 +8,6 @@ interface CommandForm {
 
 export default function Command() {
   const [output, setOutput] = useState("");
-
-  useEffect(() => {
-    getTokenFromSecret();
-  }, []);
 
   async function handleSubmit(values: CommandForm) {
     if (values.roomId == "") {

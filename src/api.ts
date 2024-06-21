@@ -1,15 +1,19 @@
-import { LocalStorage } from "@raycast/api";
+import { getPreferenceValues } from "@raycast/api";
 import { Liveblocks } from "@liveblocks/node";
 
-const createClient = async () => {
-  const secret = await LocalStorage.getItem<string>("liveblocks-secret");
+interface Preferences {
+  secret: string;
+}
 
-  if (!secret) {
+const createClient = async () => {
+  const preferences = getPreferenceValues<Preferences>();
+
+  if (!preferences.secret) {
     throw new Error("Secret key is required");
   }
 
   return new Liveblocks({
-    secret,
+    secret: preferences.secret,
   });
 };
 

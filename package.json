@@ -12,6 +12,13 @@
   "license": "MIT",
   "commands": [
     {
+      "name": "get-rooms",
+      "title": "Get Rooms",
+      "subtitle": "Liveblocks",
+      "description": "Get a list of all rooms.",
+      "mode": "view"
+    },
+    {
       "name": "init-room-storage",
       "title": "Initialize Room Storage",
       "subtitle": "Liveblocks",
