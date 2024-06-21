@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getRooms } from "./api";
 
 export default function Command() {
+  const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState<RoomData[]>([]);
 
   useEffect(() => {
@@ -11,26 +12,26 @@ export default function Command() {
       const rooms = await getRooms();
 
       setRooms(rooms.data);
+      setLoading(false);
     }
 
     fetchRooms();
   }, []);
 
-  console.log(rooms);
-
   return (
-    <List isLoading={true} searchBarPlaceholder="Search for a room" onSearchTextChange={() => {}}>
+    <List isLoading={loading}>
+      {rooms.map((room) => (
         <List.Item
-            title="Room 1"
-            subtitle="Room ID: 1"
-            actions={
+          title={room.id}
+          actions={
             <ActionPanel>
-                <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => {}} />
-                <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => {}} />
-                <Action title="Delete Room Storage" icon={Icon.Trash} onAction={() => {}} />
+              <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => {}} />
+              <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => {}} />
+              <Action title="Delete Room Storage" icon={Icon.Trash} onAction={() => {}} />
             </ActionPanel>
-            }
+          }
         />
+      ))}
     </List>
   );
 }
