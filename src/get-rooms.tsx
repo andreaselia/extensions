@@ -7,21 +7,29 @@ export default function Command() {
   const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState<RoomData[]>([]);
 
+  const fetchRooms = async () => {
+    const rooms = await getRooms();
+
+    setRooms(rooms.data);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    async function fetchRooms() {
-      const rooms = await getRooms();
-
-      setRooms(rooms.data);
-      setLoading(false);
-    }
-
     fetchRooms();
   }, []);
 
   return (
-    <List isLoading={loading}>
-      {rooms.map((room) => (
+    <List
+      isLoading={loading}
+      pagination={{
+        pageSize: 10,
+        hasMore: true,
+        onLoadMore: () => console.log("Load more"),
+      }}
+    >
+      {rooms.map((room, index) => (
         <List.Item
+          key={index}
           title={room.id}
           actions={
             <ActionPanel>
