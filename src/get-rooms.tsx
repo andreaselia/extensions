@@ -35,10 +35,10 @@ export default function Command() {
           title={room.id}
           actions={
             <ActionPanel>
+              <Action title="Get Active Users" icon={Icon.TwoPeople} onAction={() => push(<ActiveUsers />)} />
               <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => {}} />
               <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => {}} />
               <Action title="Delete Room Storage" icon={Icon.Trash} onAction={() => {}} />
-              <Action title="Get Active Users" icon={Icon.Trash} onAction={() => push(<ActiveUsers />)} />
             </ActionPanel>
           }
         />
