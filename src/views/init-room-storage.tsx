@@ -1,6 +1,6 @@
 import { Form, ActionPanel, Action, showToast, Toast, open, Icon } from "@raycast/api";
 import { useRef, useState } from "react";
-import { initRoomStorage } from "./api";
+import { initRoomStorage } from "../api";
 
 interface CommandForm {
   roomId: string;

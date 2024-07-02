@@ -2,7 +2,10 @@ import { ActionPanel, Action, Icon, List, useNavigation } from "@raycast/api";
 import { RoomData } from "@liveblocks/node";
 import { useEffect, useState } from "react";
 import { getRooms } from "./api";
-import { ActiveUsers } from "./views";
+import ActiveUsers from "./views/active-users";
+import GetRoomStorage from "./views/get-room-storage";
+import InitRoomStorage from "./views/init-room-storage";
+import DeleteRoomStorage from "./views/delete-room-storage";
 
 export default function Command() {
   const { push } = useNavigation();
@@ -36,9 +39,10 @@ export default function Command() {
           actions={
             <ActionPanel>
               <Action title="Get Active Users" icon={Icon.TwoPeople} onAction={() => push(<ActiveUsers />)} />
-              <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => {}} />
-              <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => {}} />
-              <Action title="Delete Room Storage" icon={Icon.Trash} onAction={() => {}} />
+              <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => push(<GetRoomStorage />)} />
+              <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => push(<InitRoomStorage />)} />
+              {/* Maybe replace delete with a confirm dialog so it doesn't need a view? */}
+              <Action title="Delete Room Storage" icon={Icon.Trash} onAction={() => push(<DeleteRoomStorage />)} />
             </ActionPanel>
           }
         />

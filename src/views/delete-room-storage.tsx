@@ -1,5 +1,5 @@
 import { Form, ActionPanel, Action, showToast, Toast, popToRoot, Icon } from "@raycast/api";
-import { deleteRoomStorage } from "./api";
+import { deleteRoomStorage } from "../api";
 
 interface CommandForm {
   roomId: string;
