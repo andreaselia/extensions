@@ -8,8 +8,7 @@ interface CommandForm {
   payload: string;
 }
 
-export default function Command() {
-  const [roomId, setRoomId] = useState("");
+export default function Command({ roomId }: { roomId: string }) {
   const [payload, setPayload] = useState("");
   const roomIdFieldRef = useRef<Form.TextField>(null);
 
@@ -43,7 +42,6 @@ export default function Command() {
       };
 
       roomIdFieldRef.current?.focus();
-      setRoomId("");
       setPayload("");
     } catch (e) {
       toast.style = Toast.Style.Failure;
@@ -59,14 +57,6 @@ export default function Command() {
         </ActionPanel>
       }
     >
-      <Form.TextField
-        id="roomId"
-        title="Room ID"
-        ref={roomIdFieldRef}
-        value={roomId}
-        onChange={setRoomId}
-        placeholder="Enter Room ID"
-      />
       <Form.Dropdown id="type" title="Type" defaultValue="LiveObject">
         <Form.Dropdown.Item value="LiveObject" title="LiveObject" />
         <Form.Dropdown.Item value="LiveList" title="LiveList" />

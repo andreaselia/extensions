@@ -6,7 +6,7 @@ interface CommandForm {
   roomId: string;
 }
 
-export default function Command() {
+export default function Command({ roomId }: { roomId: string }) {
   const [output, setOutput] = useState("");
 
   async function handleSubmit(values: CommandForm) {
@@ -48,7 +48,6 @@ export default function Command() {
         </ActionPanel>
       }
     >
-      <Form.TextField id="roomId" title="Room ID" placeholder="Enter room ID" />
       {output ? (
         <>
           <Form.Separator />
