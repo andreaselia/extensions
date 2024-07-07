@@ -29,10 +29,7 @@ export default function Command({ roomId }: { roomId: string }) {
       }}
     >
       {activeUsers.length === 0 && (
-        <List.EmptyView
-          title="No active users"
-          description="There are no active users in this room"
-        />
+        <List.EmptyView title="No active users" description="There are no active users in this room" />
       )}
 
       {activeUsers.map((activeUser, index) => (
@@ -40,9 +37,7 @@ export default function Command({ roomId }: { roomId: string }) {
           key={index}
           title={`${activeUser.id}`}
           subtitle={activeUser.type}
-          accessories={[
-            { text: `${activeUser.info}` }
-          ]}
+          accessories={[{ text: `${activeUser.info}` }]}
         />
       ))}
     </List>

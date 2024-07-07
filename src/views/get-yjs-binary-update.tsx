@@ -5,7 +5,7 @@ import { getYjsDocumentAsBinaryUpdate } from "../api";
 
 export default function Command({ roomId }: { roomId: string }) {
   const [loading, setLoading] = useState(true);
-  const [roomDocument, setRoomDocument] = useState<any>("");
+  const [roomDocument, setRoomDocument] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {

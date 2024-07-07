@@ -5,7 +5,8 @@ import { getRoomStorage } from "../api";
 
 export default function Command({ roomId }: { roomId: string }) {
   const [loading, setLoading] = useState(true);
-  const [roomStorage, setRoomStorage] = useState<any>("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [roomStorage, setRoomStorage] = useState<any>({});
 
   useEffect(() => {
     const fetchData = async () => {

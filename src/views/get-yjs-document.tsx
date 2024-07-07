@@ -1,15 +1,16 @@
 import { ActionPanel, Action, Detail } from "@raycast/api";
+import { JsonObject } from "@liveblocks/node";
 import { useEffect, useState } from "react";
 
 import { getYjsDocument } from "../api";
 
 export default function Command({ roomId }: { roomId: string }) {
   const [loading, setLoading] = useState(true);
-  const [roomStorage, setRoomStorage] = useState<any>("");
+  const [roomStorage, setRoomStorage] = useState<JsonObject>({});
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getYjsDocument(roomId);
+      const data = await getYjsDocument(roomId);
 
       setRoomStorage(data);
       setLoading(false);
