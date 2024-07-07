@@ -1,7 +1,7 @@
 import { ActionPanel, Action, Detail } from "@raycast/api";
 import { useEffect, useState } from "react";
 
-import { getRoomStorage } from "../api";
+import { getYjsDocument } from "../api";
 
 export default function Command({ roomId }: { roomId: string }) {
   const [loading, setLoading] = useState(true);
@@ -9,7 +9,7 @@ export default function Command({ roomId }: { roomId: string }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getRoomStorage(roomId);
+      const { data } = await getYjsDocument(roomId);
 
       setRoomStorage(data);
       setLoading(false);

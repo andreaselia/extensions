@@ -1,5 +1,5 @@
 import { getPreferenceValues } from "@raycast/api";
-import { Liveblocks } from "@liveblocks/node";
+import { JsonObject, Liveblocks, RoomAccesses, RoomPermission } from "@liveblocks/node";
 
 interface Preferences {
   secret: string;
@@ -31,32 +31,40 @@ export const getRoom = async (roomId: string) => {
   return liveblocks.getRoom(roomId);
 };
 
-// TODO: sort params
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// DONE
-export const createRoom = async (roomId: string, params: any) => {
+export const createRoom = async (
+  roomId: string,
+  params: {
+    defaultAccesses: RoomPermission;
+    groupsAccesses?: RoomAccesses;
+    usersAccesses?: RoomAccesses;
+    metadata?: Record<string, string | string[]>;
+  },
+) => {
   const liveblocks = await createClient();
 
   return liveblocks.createRoom(roomId, params);
 };
 
-// TODO: sort params
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// DONE
-export const updateRoom = async (roomId: string, params: any) => {
+export const updateRoom = async (
+  roomId: string,
+  params: {
+    defaultAccesses?: RoomPermission | null;
+    groupsAccesses?: Record<string, ["room:write"] | ["room:read", "room:presence:write"] | null>;
+    usersAccesses?: Record<string, ["room:write"] | ["room:read", "room:presence:write"] | null>;
+    metadata?: Record<string, string | string[] | null>;
+  },
+) => {
   const liveblocks = await createClient();
 
   return liveblocks.updateRoom(roomId, params);
 };
 
-// DONE
 export const deleteRoom = async (roomId: string) => {
   const liveblocks = await createClient();
 
   return liveblocks.deleteRoom(roomId);
 };
 
-// DONE
 export const updateRoomId = async (currentRoomId: string, newRoomId: string) => {
   const liveblocks = await createClient();
 
@@ -66,7 +74,6 @@ export const updateRoomId = async (currentRoomId: string, newRoomId: string) => 
   });
 };
 
-// DONE
 export const initRoomStorage = async (roomId: string, type: "LiveObject", payload: string) => {
   const liveblocks = await createClient();
 
@@ -76,16 +83,13 @@ export const initRoomStorage = async (roomId: string, type: "LiveObject", payloa
   });
 };
 
-// DONE
 export const getActiveUsers = async (roomId: string) => {
   const liveblocks = await createClient();
 
   return liveblocks.getActiveUsers(roomId);
 };
 
-// TODO: sort data
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const broadcastEvent = async (roomId: string, data: any) => {
+export const broadcastEvent = async (roomId: string, data: JsonObject) => {
   const liveblocks = await createClient();
 
   return liveblocks.broadcastEvent(roomId, data);
@@ -109,14 +113,14 @@ export const getYjsDocument = async (roomId: string) => {
   return liveblocks.getYjsDocument(roomId);
 };
 
-// export const sendYjsBinaryUpdate = async (roomId: string, update: Uint8Array) => {
-//   const liveblocks = await createClient();
+export const sendYjsBinaryUpdate = async (roomId: string, update: Uint8Array) => {
+  const liveblocks = await createClient();
 
-//   return liveblocks.sendYjsBinaryUpdate("my-room-id", update);
-// };
+  return liveblocks.sendYjsBinaryUpdate("my-room-id", update);
+};
 
-// export const getYjsDocumentAsBinaryUpdate = async (roomId: string) => {
-//   const liveblocks = await createClient();
+export const getYjsDocumentAsBinaryUpdate = async (roomId: string) => {
+  const liveblocks = await createClient();
 
-//   return liveblocks.getYjsDocumentAsBinaryUpdate(roomId);
-// };
+  return liveblocks.getYjsDocumentAsBinaryUpdate(roomId);
+};

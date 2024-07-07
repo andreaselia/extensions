@@ -1,10 +1,11 @@
 import { Form, ActionPanel, Action, showToast, Toast, Icon } from "@raycast/api";
 import { useState } from "react";
+import { JsonObject } from "@liveblocks/node";
 
 import { broadcastEvent } from "../api";
 
 interface CommandForm {
-  data: string;
+  data: JsonObject;
 }
 
 export default function Command({ roomId }: { roomId: string }) {

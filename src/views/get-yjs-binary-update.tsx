@@ -1,17 +1,18 @@
 import { ActionPanel, Action, Detail } from "@raycast/api";
 import { useEffect, useState } from "react";
 
-import { getRoomStorage } from "../api";
+import { getYjsDocumentAsBinaryUpdate } from "../api";
 
 export default function Command({ roomId }: { roomId: string }) {
   const [loading, setLoading] = useState(true);
-  const [roomStorage, setRoomStorage] = useState<any>("");
+  const [roomDocument, setRoomDocument] = useState<any>("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getRoomStorage(roomId);
+      const arrayBuffer = await getYjsDocumentAsBinaryUpdate(roomId);
+      const data = new Uint8Array(arrayBuffer).toString();
 
-      setRoomStorage(data);
+      setRoomDocument(data);
       setLoading(false);
     };
 
@@ -21,7 +22,7 @@ export default function Command({ roomId }: { roomId: string }) {
   return (
     <Detail
       isLoading={loading}
-      markdown={JSON.stringify(roomStorage)}
+      markdown={JSON.stringify(roomDocument)}
       actions={
         <ActionPanel>
           <Action.OpenInBrowser

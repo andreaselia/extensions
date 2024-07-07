@@ -8,6 +8,9 @@ import GetRoomStorage from "./views/get-room-storage";
 import InitRoomStorage from "./views/init-room-storage";
 import UpdateRoomId from "./views/update-room-id";
 import BroadcastEvent from "./views/broadcast-event";
+import GetYjsDocument from "./views/get-yjs-document";
+import GetYjsBinaryUpdate from "./views/get-yjs-binary-update";
+import SendYjsBinaryUpdate from "./views/send-yjs-binary-update";
 
 export default function Command() {
   const { push } = useNavigation();
@@ -55,7 +58,7 @@ export default function Command() {
               />
               <Action
                 title="Get Room Storage"
-                icon={Icon.Pencil}
+                icon={Icon.List}
                 onAction={() => push(<GetRoomStorage roomId={room.id} />)}
               />
               <Action
@@ -72,6 +75,21 @@ export default function Command() {
                 title="Broadcast Event"
                 icon={Icon.Airplane}
                 onAction={() => push(<BroadcastEvent roomId={room.id} />)}
+              />
+              <Action
+                title="Get Yjs Document"
+                icon={Icon.List}
+                onAction={() => push(<GetYjsDocument roomId={room.id} />)}
+              />
+              <Action
+                title="Get Yjs Binary Update"
+                icon={Icon.List}
+                onAction={() => push(<GetYjsBinaryUpdate roomId={room.id} />)}
+              />
+              <Action
+                title="Send Yjs Binary Update"
+                icon={Icon.Plus}
+                onAction={() => push(<SendYjsBinaryUpdate roomId={room.id} />)}
               />
               <Action
                 title="Delete Room Storage"
