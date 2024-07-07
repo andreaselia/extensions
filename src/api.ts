@@ -33,6 +33,7 @@ export const getRoom = async (roomId: string) => {
 
 // TODO: sort params
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// DONE
 export const createRoom = async (roomId: string, params: any) => {
   const liveblocks = await createClient();
 
@@ -41,18 +42,21 @@ export const createRoom = async (roomId: string, params: any) => {
 
 // TODO: sort params
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// DONE
 export const updateRoom = async (roomId: string, params: any) => {
   const liveblocks = await createClient();
 
   return liveblocks.updateRoom(roomId, params);
 };
 
+// DONE
 export const deleteRoom = async (roomId: string) => {
   const liveblocks = await createClient();
 
   return liveblocks.deleteRoom(roomId);
 };
 
+// DONE
 export const updateRoomId = async (currentRoomId: string, newRoomId: string) => {
   const liveblocks = await createClient();
 
@@ -62,15 +66,17 @@ export const updateRoomId = async (currentRoomId: string, newRoomId: string) => 
   });
 };
 
-export const initRoomStorage = async (roomId: string, type: string, payload: string) => {
+// DONE
+export const initRoomStorage = async (roomId: string, type: "LiveObject", payload: string) => {
   const liveblocks = await createClient();
 
   return liveblocks.initializeStorageDocument(roomId, {
-    liveblocksType: type, // TODO: fix this
+    liveblocksType: type,
     data: JSON.parse(payload),
   });
 };
 
+// DONE
 export const getActiveUsers = async (roomId: string) => {
   const liveblocks = await createClient();
 

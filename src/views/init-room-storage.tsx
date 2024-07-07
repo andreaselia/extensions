@@ -4,7 +4,7 @@ import { initRoomStorage } from "../api";
 
 interface CommandForm {
   roomId: string;
-  type: string;
+  type: "LiveObject";
   payload: string;
 }
 

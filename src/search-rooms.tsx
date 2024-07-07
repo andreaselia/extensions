@@ -6,6 +6,8 @@ import { deleteRoomStorage, getRooms } from "./api";
 import ActiveUsers from "./views/active-users";
 import GetRoomStorage from "./views/get-room-storage";
 import InitRoomStorage from "./views/init-room-storage";
+import UpdateRoomId from "./views/update-room-id";
+import BroadcastEvent from "./views/broadcast-event";
 
 export default function Command() {
   const { push } = useNavigation();
@@ -60,6 +62,16 @@ export default function Command() {
                 title="Initialize Room Storage"
                 icon={Icon.Plus}
                 onAction={() => push(<InitRoomStorage roomId={room.id} />)}
+              />
+              <Action
+                title="Update Room ID"
+                icon={Icon.Pencil}
+                onAction={() => push(<UpdateRoomId roomId={room.id} />)}
+              />
+              <Action
+                title="Broadcast Event"
+                icon={Icon.Airplane}
+                onAction={() => push(<BroadcastEvent roomId={room.id} />)}
               />
               <Action
                 title="Delete Room Storage"
