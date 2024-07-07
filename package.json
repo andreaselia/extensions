@@ -12,10 +12,10 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "rooms",
-      "title": "Rooms",
+      "name": "search-rooms",
+      "title": "Search Rooms",
       "subtitle": "Liveblocks",
-      "description": "Get a list of all rooms.",
+      "description": "Search for rooms related to the provided secret key.",
       "mode": "view"
     }
   ],

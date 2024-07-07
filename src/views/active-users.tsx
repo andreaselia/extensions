@@ -28,6 +28,13 @@ export default function Command({ roomId }: { roomId: string }) {
         onLoadMore: () => console.log("Load more"),
       }}
     >
+      {activeUsers.length === 0 && (
+        <List.EmptyView
+          title="No active users"
+          description="There are no active users in this room"
+        />
+      )}
+
       {activeUsers.map((activeUser, index) => (
         <List.Item
           key={index}

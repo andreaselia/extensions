@@ -17,10 +17,12 @@ const createClient = async () => {
   });
 };
 
-export const getRooms = async () => {
+export const getRooms = async (nextCursor: string | null) => {
   const liveblocks = await createClient();
 
-  return liveblocks.getRooms();
+  return liveblocks.getRooms({
+    startingAfter: nextCursor || undefined,
+  });
 };
 
 export const getRoom = async (roomId: string) => {

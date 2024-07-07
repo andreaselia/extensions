@@ -11,11 +11,15 @@ export default function Command() {
   const { push } = useNavigation();
   const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState<RoomData[]>([]);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
 
   const fetchRooms = async () => {
-    const rooms = await getRooms();
+    const rooms = await getRooms(nextCursor);
 
-    setRooms(rooms.data);
+    console.log(rooms.nextCursor);
+
+    setNextCursor(rooms.nextCursor);
+    setRooms((prevRooms) => [...prevRooms, ...rooms.data]);
     setLoading(false);
   };
 
@@ -27,9 +31,13 @@ export default function Command() {
     <List
       isLoading={loading}
       pagination={{
-        pageSize: 10,
-        hasMore: true,
-        onLoadMore: () => console.log("Load more"),
+        pageSize: 40,
+        hasMore: !!nextCursor,
+        onLoadMore: () => {
+          console.log("Load more");
+
+          fetchRooms();
+        },
       }}
     >
       {rooms.map((room, index) => (
@@ -38,16 +46,32 @@ export default function Command() {
           title={room.id}
           actions={
             <ActionPanel>
-              <Action title="Get Active Users" icon={Icon.TwoPeople} onAction={() => push(<ActiveUsers roomId={room.id} />)} />
-              <Action title="Get Room Storage" icon={Icon.Pencil} onAction={() => push(<GetRoomStorage roomId={room.id} />)} />
-              <Action title="Initialize Room Storage" icon={Icon.Plus} onAction={() => push(<InitRoomStorage roomId={room.id} />)} />
-              <Action title="Delete Room Storage" icon={Icon.Trash} onAction={async () => {
+              <Action
+                title="Get Active Users"
+                icon={Icon.TwoPeople}
+                onAction={() => push(<ActiveUsers roomId={room.id} />)}
+              />
+              <Action
+                title="Get Room Storage"
+                icon={Icon.Pencil}
+                onAction={() => push(<GetRoomStorage roomId={room.id} />)}
+              />
+              <Action
+                title="Initialize Room Storage"
+                icon={Icon.Plus}
+                onAction={() => push(<InitRoomStorage roomId={room.id} />)}
+              />
+              <Action
+                title="Delete Room Storage"
+                icon={Icon.Trash}
+                onAction={async () => {
                   if (await confirmAlert({ title: "Are you sure?" })) {
                     await deleteRoomStorage(room.id);
 
                     fetchRooms();
                   }
-              }} />
+                }}
+              />
             </ActionPanel>
           }
         />

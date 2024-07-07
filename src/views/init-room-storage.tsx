@@ -29,14 +29,14 @@ export default function Command({ roomId }: { roomId: string }) {
     }
 
     try {
-      initRoomStorage(values.roomId, values.type, values.payload);
+      initRoomStorage(roomId, values.type, values.payload);
 
       toast.style = Toast.Style.Success;
       toast.title = "Room initialized successfully";
       toast.primaryAction = {
         title: "Open in Dashboard",
         onAction: (toast) => {
-          open(`https://liveblocks.io/dashboard/rooms/${encodeURIComponent(values.roomId)}`);
+          open(`https://liveblocks.io/dashboard/rooms/${encodeURIComponent(roomId)}`);
           toast.hide();
         },
       };

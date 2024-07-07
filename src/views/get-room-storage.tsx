@@ -1,61 +1,34 @@
-import { Form, ActionPanel, Action, showToast, Toast, open, Icon } from "@raycast/api";
-import { useState } from "react";
+import { ActionPanel, Action, Detail } from "@raycast/api";
+import { useEffect, useState } from "react";
+
 import { getRoomStorage } from "../api";
 
-interface CommandForm {
-  roomId: string;
-}
-
 export default function Command({ roomId }: { roomId: string }) {
-  const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [roomStorage, setRoomStorage] = useState<any>("");
 
-  async function handleSubmit(values: CommandForm) {
-    if (values.roomId == "") {
-      showToast(Toast.Style.Failure, "Error", "Room ID is required");
-      return;
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getRoomStorage(roomId);
 
-    const toast = await showToast({
-      style: Toast.Style.Animated,
-      title: "Retrieving room storage...",
-    });
+      setRoomStorage(data);
+      setLoading(false);
+    };
 
-    try {
-      const { data } = await getRoomStorage(values.roomId);
-
-      toast.style = Toast.Style.Success;
-      toast.title = "Room storage retrieved successfully";
-      toast.primaryAction = {
-        title: "Open in Dashboard",
-        onAction: (toast) => {
-          open(`https://liveblocks.io/dashboard/rooms/${encodeURIComponent(values.roomId)}`);
-          toast.hide();
-        },
-      };
-
-      setOutput(JSON.stringify(data));
-    } catch (e) {
-      toast.style = Toast.Style.Failure;
-      toast.title = "Unable to retrieve room storage";
-    }
-  }
+    fetchData();
+  }, []);
 
   return (
-    <Form
+    <Detail
       actions={
         <ActionPanel>
-          <Action.SubmitForm title="Get Room Storage" onSubmit={handleSubmit} icon={Icon.Pencil} />
+          <Action.OpenInBrowser
+            title="Open in Dashboard"
+            url={`https://liveblocks.io/dashboard/rooms/${encodeURIComponent(roomId)}`}
+          />
         </ActionPanel>
       }
-    >
-      {output ? (
-        <>
-          <Form.Separator />
-          {/* spacer */}
-          <Form.Description text="" />
-          <Form.Description title="Output" text={output} />
-        </>
-      ) : null}
-    </Form>
+      markdown={JSON.stringify(roomStorage)}
+    />
   );
 }
