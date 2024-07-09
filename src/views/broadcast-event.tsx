@@ -15,12 +15,6 @@ export default function Command({ roomId }: { roomId: string }) {
 }`);
 
   async function handleSubmit(values: CommandForm) {
-    if (values.data == "") {
-      showToast(Toast.Style.Failure, "Error", "Data is required");
-
-      return;
-    }
-
     const toast = await showToast({
       style: Toast.Style.Animated,
       title: "Broadcasting event...",
