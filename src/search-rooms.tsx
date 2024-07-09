@@ -21,8 +21,6 @@ export default function Command() {
   const fetchRooms = async () => {
     const rooms = await getRooms(nextCursor);
 
-    console.log(rooms.nextCursor);
-
     setNextCursor(rooms.nextCursor);
     setRooms((prevRooms) => [...prevRooms, ...rooms.data]);
     setLoading(false);
@@ -38,11 +36,7 @@ export default function Command() {
       pagination={{
         pageSize: 40,
         hasMore: !!nextCursor,
-        onLoadMore: () => {
-          console.log("Load more");
-
-          fetchRooms();
-        },
+        onLoadMore: () => fetchRooms(),
       }}
     >
       {rooms.map((room, index) => (
@@ -55,41 +49,49 @@ export default function Command() {
                 title="Get Active Users"
                 icon={Icon.TwoPeople}
                 onAction={() => push(<ActiveUsers roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "g" }}
               />
               <Action
                 title="Get Room Storage"
                 icon={Icon.List}
                 onAction={() => push(<GetRoomStorage roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "r" }}
               />
               <Action
                 title="Initialize Room Storage"
                 icon={Icon.Plus}
                 onAction={() => push(<InitRoomStorage roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "i" }}
               />
               <Action
                 title="Update Room ID"
                 icon={Icon.Pencil}
                 onAction={() => push(<UpdateRoomId roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "u" }}
               />
               <Action
                 title="Broadcast Event"
                 icon={Icon.Airplane}
                 onAction={() => push(<BroadcastEvent roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "b" }}
               />
               <Action
                 title="Get Yjs Document"
                 icon={Icon.List}
                 onAction={() => push(<GetYjsDocument roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "d" }}
               />
               <Action
                 title="Get Yjs Binary Update"
                 icon={Icon.List}
                 onAction={() => push(<GetYjsBinaryUpdate roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "y" }}
               />
               <Action
                 title="Send Yjs Binary Update"
-                icon={Icon.Plus}
+                icon={Icon.Airplane}
                 onAction={() => push(<SendYjsBinaryUpdate roomId={room.id} />)}
+                shortcut={{ modifiers: ["cmd"], key: "s" }}
               />
               <Action
                 title="Delete Room Storage"
@@ -101,6 +103,7 @@ export default function Command() {
                     fetchRooms();
                   }
                 }}
+                shortcut={{ modifiers: ["cmd"], key: "d" }}
               />
             </ActionPanel>
           }

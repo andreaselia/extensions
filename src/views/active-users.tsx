@@ -20,14 +20,7 @@ export default function Command({ roomId }: { roomId: string }) {
   }, []);
 
   return (
-    <List
-      isLoading={loading}
-      pagination={{
-        pageSize: 10,
-        hasMore: true,
-        onLoadMore: () => console.log("Load more"),
-      }}
-    >
+    <List isLoading={loading}>
       {activeUsers.length === 0 && (
         <List.EmptyView title="No active users" description="There are no active users in this room" />
       )}
