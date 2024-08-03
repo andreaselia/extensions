@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Icon, List, useNavigation, confirmAlert } from "@raycast/api";
+import { ActionPanel, Action, Icon, List, useNavigation, confirmAlert, Detail } from "@raycast/api";
 import { RoomData } from "@liveblocks/node";
 import { useEffect, useState } from "react";
 
@@ -17,18 +17,29 @@ export default function Command() {
   const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState<RoomData[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const fetchRooms = async () => {
-    const rooms = await getRooms(nextCursor);
+    try {
+      const rooms = await getRooms(nextCursor);
 
-    setNextCursor(rooms.nextCursor);
-    setRooms((prevRooms) => [...prevRooms, ...rooms.data]);
-    setLoading(false);
+      setNextCursor(rooms.nextCursor);
+      setRooms((prevRooms) => [...prevRooms, ...rooms.data]);
+      setLoading(false);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "An error occurred";
+
+      setErrorMessage(message);
+    }
   };
 
   useEffect(() => {
     fetchRooms();
   }, []);
+
+  if (errorMessage) {
+    return <Detail markdown={errorMessage} />;
+  }
 
   return (
     <List
