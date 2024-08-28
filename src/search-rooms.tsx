@@ -38,7 +38,15 @@ export default function Command() {
   }, []);
 
   if (errorMessage) {
-    return <Detail markdown={errorMessage} />;
+    return (
+      <List>
+        <List.EmptyView
+          icon={Icon.Warning}
+          title="Whoops!"
+          description={errorMessage}
+        />
+      </List>
+    );
   }
 
   return (
